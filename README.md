@@ -101,8 +101,27 @@ cloudflare-ddns                 # First-run setup (if not configured)
 cloudflare-ddns run             # Start the polling daemon
 cloudflare-ddns test            # Run a single update cycle and show results
 cloudflare-ddns logs [-n 50]    # View recent log entries (default last 50 lines)
+cloudflare-ddns config          # Manage configuration
 cloudflare-ddns --version       # Show version
 cloudflare-ddns --help          # Show help
+```
+
+### Config Command
+
+Manage your configuration settings:
+
+```bash
+# Show current configuration
+cloudflare-ddns config show
+
+# Set hostname
+cloudflare-ddns config set hostname=new.example.com
+
+# Set API token (prompts for secure input)
+cloudflare-ddns config set token
+
+# Set both
+cloudflare-ddns config set hostname=new.example.com token
 ```
 
 ### Test Command

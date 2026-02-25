@@ -13,12 +13,12 @@ import (
 )
 
 var (
-	logsCmd = &cobra.Command{
+	numLines int
+	logsCmd  = &cobra.Command{
 		Use:   "logs",
 		Short: "Show recent log entries",
 		RunE:  doLogs,
 	}
-	numLines int
 )
 
 func init() {
@@ -45,7 +45,6 @@ func doLogs(_ *cobra.Command, _ []string) error {
 		_ = file.Close()
 	}()
 
-	// Read all lines and keep only the last N
 	var lines []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
