@@ -3,9 +3,6 @@ FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
-# Install git for fetching dependencies
-RUN apk add --no-cache git
-
 # Copy go mod and sum files
 COPY go.mod go.sum ./
 
@@ -15,20 +12,14 @@ RUN go mod download
 # Copy source code
 COPY . .
 
-# Build the binary
-# CGO_ENABLED=0 creates a statically linked binary
-RUN CGO_ENABLED=0 GOOS=linux go build -o cloudflare-ddns .
+# Build a statically linked binary with debug symbols stripped
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o cloudflare-ddns .
 
 # Final stage
-FROM alpine:latest
+FROM scratch
 
-WORKDIR /app
+# CA certificates are required for HTTPS calls to Cloudflare API and ipify.org
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /app/cloudflare-ddns /cloudflare-ddns
 
-# Install ca-certificates for HTTPS requests
-RUN apk --no-cache add ca-certificates
-
-# Copy binary from builder
-COPY --from=builder /app/cloudflare-ddns .
-
-# Run the binary
-ENTRYPOINT ["./cloudflare-ddns", "run"]
+ENTRYPOINT ["/cloudflare-ddns", "run"]
