@@ -32,11 +32,12 @@ func init() {
 	rootCmd.AddCommand(runCmd)
 	rootCmd.AddCommand(testCmd)
 	rootCmd.AddCommand(logsCmd)
+	rootCmd.AddCommand(configCmd)
 }
 
-func runRoot(cmd *cobra.Command, args []string) error {
+func runRoot(_ *cobra.Command, _ []string) error {
 	if err := logger.Init(); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to initialize logger: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Failed to initialize logger: %v\n", err)
 	}
 
 	// Check if config and keychain exist
