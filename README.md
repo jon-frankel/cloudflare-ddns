@@ -17,7 +17,7 @@ A Go-based Dynamic DNS client that keeps a Cloudflare DNS A record in sync with 
 ### From Source
 
 ```bash
-git clone https://github.com/jonathan/cloudflare-ddns.git
+git clone https://github.com/jon-frankel/cloudflare-ddns.git
 cd cloudflare-ddns
 go build -o cloudflare-ddns
 ```
@@ -25,7 +25,7 @@ go build -o cloudflare-ddns
 ### Via Homebrew (coming soon)
 
 ```bash
-brew tap jonathan/cloudflare-ddns
+brew tap jon-frankel/cloudflare-ddns
 brew install cloudflare-ddns
 ```
 
@@ -214,4 +214,4 @@ MIT
 
 ## Support
 
-For issues, feature requests, or contributions, visit: https://github.com/jonathan/cloudflare-ddns
+For issues, feature requests, or contributions, visit: https://github.com/jon-frankel/cloudflare-ddns
