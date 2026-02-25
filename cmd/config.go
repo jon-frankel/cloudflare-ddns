@@ -40,7 +40,6 @@ Examples:
 }
 
 func init() {
-	rootCmd.AddCommand(configCmd)
 	configCmd.AddCommand(configShowCmd)
 	configCmd.AddCommand(configSetCmd)
 }
