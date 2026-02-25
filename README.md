@@ -11,6 +11,7 @@ A Go-based Dynamic DNS client that keeps a Cloudflare DNS A record in sync with 
 - **Graceful Error Handling**: Retries on transient failures, distinguishes configuration errors
 - **JSON Logging**: Structured logs with automatic rotation
 - **Homebrew Integration**: Easy installation and management via Homebrew on macOS/Linux
+- **Docker Support**: Run as a lightweight container
 
 ## Installation
 
@@ -27,6 +28,30 @@ go build -o cloudflare-ddns
 ```bash
 brew tap jon-frankel/cloudflare-ddns
 brew install cloudflare-ddns
+```
+
+### Via Docker
+
+You can run the application as a Docker container. This is useful for NAS devices or servers where you don't want to install Go or manage system services.
+
+**Pull the image:**
+```bash
+docker pull ghcr.io/jon-frankel/cloudflare-ddns:latest
+```
+
+**Run the container:**
+```bash
+docker run -d \
+  --name cloudflare-ddns \
+  --restart unless-stopped \
+  -e CLOUDFLARE_DDNS_HOSTNAME=subdomain.example.com \
+  -e CLOUDFLARE_API_TOKEN=your-api-token \
+  ghcr.io/jon-frankel/cloudflare-ddns:latest
+```
+
+**View logs:**
+```bash
+docker logs -f cloudflare-ddns
 ```
 
 ## Quick Start

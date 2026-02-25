@@ -3,6 +3,7 @@ package keychain
 import (
 	"errors"
 	"fmt"
+	"os"
 
 	"github.com/zalando/go-keyring"
 )
@@ -24,6 +25,11 @@ func Set(token string) error {
 
 // Get retrieves the API token from the system keychain.
 func Get() (string, error) {
+	// Allow overriding token via environment variable (useful for Docker)
+	if envToken := os.Getenv("CLOUDFLARE_API_TOKEN"); envToken != "" {
+		return envToken, nil
+	}
+
 	token, err := keyring.Get(service, user)
 	if err != nil {
 		if errors.Is(err, keyring.ErrNotFound) {
