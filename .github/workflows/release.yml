@@ -31,3 +31,4 @@ jobs:
           args: release --clean
         env:
           HOMEBREW_PAT_TOKEN: ${{ secrets.HOMEBREW_PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
