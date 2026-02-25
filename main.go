@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jonathan/cloudflare-ddns/cmd"
+	"github.com/jon-frankel/cloudflare-ddns/cmd"
 )
 
 var (

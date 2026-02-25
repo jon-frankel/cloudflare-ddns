@@ -27,7 +27,7 @@ brews:
       owner: jonathan
       name: homebrew-cloudflare-ddns
     directory: Formula
-    homepage: https://github.com/jonathan/cloudflare-ddns
+    homepage: https://github.com/jon-frankel/cloudflare-ddns
     description: "Dynamic DNS client that keeps a Cloudflare record in sync with your public IP"
     license: MIT
     install: |

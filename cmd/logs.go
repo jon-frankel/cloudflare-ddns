@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/jonathan/cloudflare-ddns/internal/logger"
+	"github.com/jon-frankel/cloudflare-ddns/internal/logger"
 )
 
 var (
@@ -66,14 +66,14 @@ func doLogs(cmd *cobra.Command, args []string) error {
 }
 
 type LogEntry struct {
-	Time    string      `json:"time"`
-	Level   string      `json:"level"`
-	Msg     string      `json:"msg"`
-	Hostname string     `json:"hostname,omitempty"`
-	Error   string      `json:"error,omitempty"`
-	OldIP   string      `json:"oldIP,omitempty"`
-	NewIP   string      `json:"newIP,omitempty"`
-	IP      string      `json:"ip,omitempty"`
+	Time     string `json:"time"`
+	Level    string `json:"level"`
+	Msg      string `json:"msg"`
+	Hostname string `json:"hostname,omitempty"`
+	Error    string `json:"error,omitempty"`
+	OldIP    string `json:"oldIP,omitempty"`
+	NewIP    string `json:"newIP,omitempty"`
+	IP       string `json:"ip,omitempty"`
 }
 
 func prettyPrintLogLine(line string) {

@@ -8,10 +8,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/jonathan/cloudflare-ddns/internal/config"
-	"github.com/jonathan/cloudflare-ddns/internal/keychain"
-	"github.com/jonathan/cloudflare-ddns/internal/logger"
-	"github.com/jonathan/cloudflare-ddns/internal/updater"
+	"github.com/jon-frankel/cloudflare-ddns/internal/config"
+	"github.com/jon-frankel/cloudflare-ddns/internal/keychain"
+	"github.com/jon-frankel/cloudflare-ddns/internal/logger"
+	"github.com/jon-frankel/cloudflare-ddns/internal/updater"
 )
 
 var testCmd = &cobra.Command{

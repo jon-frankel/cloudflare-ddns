@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"net"
 
-	"github.com/jonathan/cloudflare-ddns/internal/cloudflare"
-	"github.com/jonathan/cloudflare-ddns/internal/ip"
-	"github.com/jonathan/cloudflare-ddns/internal/keychain"
+	"github.com/jon-frankel/cloudflare-ddns/internal/cloudflare"
+	"github.com/jon-frankel/cloudflare-ddns/internal/ip"
+	"github.com/jon-frankel/cloudflare-ddns/internal/keychain"
 )
 
 type UpdateResult struct {
