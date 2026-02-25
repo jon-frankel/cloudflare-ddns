@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   goreleaser:
+    environment: homebrew
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,7 +27,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
-          version: latest
+          version: '~> v2'
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_PAT_TOKEN: ${{ secrets.HOMEBREW_PAT_TOKEN }}
