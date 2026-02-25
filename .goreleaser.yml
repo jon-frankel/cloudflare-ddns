@@ -24,8 +24,9 @@ archives:
 brews:
   - name: cloudflare-ddns
     repository:
-      owner: jonathan
-      name: homebrew-cloudflare-ddns
+      owner: jon-frankel
+      name: cloudflare-ddns
+      token: "{{ .Env.GITHUB_TOKEN }}"
     directory: Formula
     homepage: https://github.com/jon-frankel/cloudflare-ddns
     description: "Dynamic DNS client that keeps a Cloudflare record in sync with your public IP"
@@ -33,14 +34,10 @@ brews:
     install: |
       bin.install "cloudflare-ddns"
     service: |
-      run opt_bin/"cloudflare-ddns"
-      run_type :interval
-      interval 60
-      run_at_load true
-      keep_alive false
+      run [opt_bin/"cloudflare-ddns", "run"]
+      keep_alive true
       log_path var/"log/cloudflare-ddns.log"
       error_log_path var/"log/cloudflare-ddns.log"
-      process_type :background
     test: |
       system "#{bin}/cloudflare-ddns", "--version"
     caveats: |
