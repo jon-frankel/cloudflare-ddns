@@ -28,5 +28,8 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
+ .idea/
 # .vscode/
+/.idea/
+/cloudflare-ddns
+/.claude/memories/

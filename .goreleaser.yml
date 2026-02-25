@@ -1,0 +1,52 @@
+version: 2
+
+project_name: cloudflare-ddns
+
+builds:
+  - main: ./
+    id: cloudflare-ddns
+    binary: cloudflare-ddns
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+
+archives:
+  - format: tar.gz
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+
+brews:
+  - name: cloudflare-ddns
+    repository:
+      owner: jon-frankel
+      name: cloudflare-ddns
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/jon-frankel/cloudflare-ddns
+    description: "Dynamic DNS client that keeps a Cloudflare record in sync with your public IP"
+    license: MIT
+    install: |
+      bin.install "cloudflare-ddns"
+    service: |
+      run [opt_bin/"cloudflare-ddns", "run"]
+      keep_alive true
+      log_path var/"log/cloudflare-ddns.log"
+      error_log_path var/"log/cloudflare-ddns.log"
+    test: |
+      system "#{bin}/cloudflare-ddns", "--version"
+    caveats: |
+      Run `cloudflare-ddns` once to complete first-time setup, then:
+        brew services start cloudflare-ddns
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
