@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"gopkg.in/natefinch/lumberjack.v2"
 )
@@ -25,7 +26,7 @@ func Init() error {
 	// Create lumberjack logger with rotation
 	lj := &lumberjack.Logger{
 		Filename:   logFile,
-		MaxSize:    10,   // MB
+		MaxSize:    10, // MB
 		MaxBackups: 3,
 		Compress:   true,
 	}
@@ -39,14 +40,21 @@ func Init() error {
 
 // getLogDir returns the log directory based on OS.
 func getLogDir() (string, error) {
+	// macOS logs usually go to ~/Library/Logs
+	if runtime.GOOS == "darwin" {
+		homeDir := os.Getenv("HOME")
+		if homeDir != "" {
+			return filepath.Join(homeDir, "Library", "Logs", "cloudflare-ddns"), nil
+		}
+	}
+
 	cacheDir, err := os.UserCacheDir()
 	if err != nil {
-		// Fallback for macOS: ~/Library/Logs
 		homeDir := os.Getenv("HOME")
 		if homeDir == "" {
 			return "", fmt.Errorf("unable to determine log directory")
 		}
-		return filepath.Join(homeDir, "Library", "Logs", "cloudflare-ddns"), nil
+		return filepath.Join(homeDir, ".cache", "cloudflare-ddns"), nil
 	}
 	return filepath.Join(cacheDir, "cloudflare-ddns"), nil
 }

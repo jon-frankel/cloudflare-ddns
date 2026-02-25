@@ -6,11 +6,14 @@ import (
 	"net"
 	"net/http"
 	"strings"
+	"time"
 )
 
 var (
 	cachedIP net.IP
-	client   = &http.Client{}
+	client   = &http.Client{
+		Timeout: 10 * time.Second,
+	}
 )
 
 // Get fetches the current public IP from ipify and caches it.

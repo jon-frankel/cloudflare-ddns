@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"syscall"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -71,7 +70,7 @@ func setupFlow() error {
 
 	// Prompt for API key
 	fmt.Print("Cloudflare API key: ")
-	keyBytes, err := term.ReadPassword(int(syscall.Stdin))
+	keyBytes, err := term.ReadPassword(int(os.Stdin.Fd()))
 	if err != nil {
 		return fmt.Errorf("failed to read API key: %w", err)
 	}

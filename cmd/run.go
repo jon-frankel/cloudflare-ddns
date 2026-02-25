@@ -88,7 +88,7 @@ func logUpdateResult(hostname string, result updater.UpdateResult) {
 	}
 
 	if result.Updated {
-		fmt.Printf("✓ DNS record updated: %s -> %s\n", result.RecordIP, result.CurrentIP)
+		fmt.Printf("✓ DNS record updated: %s -> %s\n", result.OldIP, result.CurrentIP)
 	} else {
 		fmt.Printf("ℹ DNS record is current: %s\n", result.CurrentIP)
 	}

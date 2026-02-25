@@ -87,12 +87,8 @@ func (c *Client) UpdateRecord(ctx context.Context, hostname string, newIP net.IP
 	// Create ResourceContainer for the zone
 	rc := cf.ZoneIdentifier(zoneID)
 
-	// Ensure Proxied is true (enable Cloudflare proxy/orange cloud)
+	// Always enable Cloudflare proxy (orange cloud)
 	proxied := cf.BoolPtr(true)
-	if record.Proxied != nil && !*record.Proxied {
-		// If it was explicitly set to false, respect that but default to true for new records
-		proxied = cf.BoolPtr(true)
-	}
 
 	updateParams := cf.UpdateDNSRecordParams{
 		ID:      record.ID,

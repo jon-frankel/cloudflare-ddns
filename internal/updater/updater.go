@@ -14,6 +14,7 @@ import (
 type UpdateResult struct {
 	CurrentIP     net.IP
 	RecordIP      net.IP
+	OldIP         net.IP
 	RecordProxied *bool
 	Updated       bool
 	Error         error
@@ -56,6 +57,7 @@ func RunOnce(ctx context.Context, hostname string) UpdateResult {
 		return result
 	}
 	result.RecordIP = record.IP
+	result.OldIP = record.IP
 	result.RecordProxied = record.Proxied
 
 	// Check if IP or proxy status needs update
@@ -127,6 +129,7 @@ func RunOnceWithCreate(ctx context.Context, hostname string) UpdateResult {
 		return result
 	}
 	result.RecordIP = record.IP
+	result.OldIP = record.IP
 	result.RecordProxied = record.Proxied
 
 	// Check if IP or proxy status needs update
