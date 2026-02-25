@@ -83,7 +83,7 @@ func setupFlow() error {
 	}
 
 	// Test credentials
-	fmt.Println("Testing credentials...")
+	fmt.Println("Testing credentials and setting up DNS record...")
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -92,15 +92,21 @@ func setupFlow() error {
 		return fmt.Errorf("failed to store API key: %w", err)
 	}
 
-	result := updater.RunOnce(ctx, hostname)
+	// Use RunOnceWithCreate to create the record if it doesn't exist
+	result := updater.RunOnceWithCreate(ctx, hostname)
 	if result.Error != nil {
-		fmt.Printf("❌ Credential test failed: %v\n", result.Error)
+		fmt.Printf("❌ Setup failed: %v\n", result.Error)
 		return result.Error
 	}
 
 	fmt.Println("✓ Credentials validated successfully!")
 	fmt.Printf("  Current IP: %s\n", result.CurrentIP.String())
 	fmt.Printf("  DNS Record IP: %s\n", result.RecordIP.String())
+	if result.Updated {
+		fmt.Println("  (DNS record was created)")
+	} else {
+		fmt.Println("  (DNS record was already up to date)")
+	}
 	fmt.Println()
 
 	// Save configuration

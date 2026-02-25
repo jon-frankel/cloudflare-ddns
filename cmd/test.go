@@ -53,12 +53,19 @@ func doTest(cmd *cobra.Command, args []string) error {
 
 	result := updater.RunOnce(ctx, cfg.Hostname)
 
-	fmt.Printf("Hostname:       %s\n", cfg.Hostname)
+	fmt.Printf("Hostname:            %s\n", cfg.Hostname)
 	if result.CurrentIP != nil {
-		fmt.Printf("Current IP:     %s\n", result.CurrentIP.String())
+		fmt.Printf("Current IP:          %s\n", result.CurrentIP.String())
 	}
 	if result.RecordIP != nil {
-		fmt.Printf("DNS Record IP:  %s\n", result.RecordIP.String())
+		fmt.Printf("DNS Record IP:       %s\n", result.RecordIP.String())
+	}
+	if result.RecordProxied != nil {
+		proxiedStr := "disabled"
+		if *result.RecordProxied {
+			proxiedStr = "enabled ✓"
+		}
+		fmt.Printf("Cloudflare Proxy:    %s\n", proxiedStr)
 	}
 	fmt.Println()
 
