@@ -24,6 +24,11 @@ func init() {
 
 // Load reads the configuration from disk. Returns empty config and nil if file doesn't exist.
 func Load() (Config, error) {
+	// Allow overriding hostname via environment variable (useful for Docker)
+	if envHostname := os.Getenv("CLOUDFLARE_DDNS_HOSTNAME"); envHostname != "" {
+		return Config{Hostname: envHostname}, nil
+	}
+
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		return Config{}, nil
 	}
