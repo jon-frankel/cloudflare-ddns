@@ -25,11 +25,13 @@ func init() {
 	logsCmd.Flags().IntVarP(&numLines, "lines", "n", 50, "Number of lines to display")
 }
 
-func doLogs(cmd *cobra.Command, args []string) error {
+func doLogs(_ *cobra.Command, _ []string) error {
 	logPath, err := logger.GetLogFilePath()
 	if err != nil {
 		return fmt.Errorf("failed to determine log file path: %w", err)
 	}
+
+	fmt.Printf("Reading logs from: %s\n", logPath)
 
 	file, err := os.Open(logPath)
 	if err != nil {
@@ -39,7 +41,9 @@ func doLogs(cmd *cobra.Command, args []string) error {
 		}
 		return fmt.Errorf("failed to open log file: %w", err)
 	}
-	defer file.Close()
+	defer func() {
+		_ = file.Close()
+	}()
 
 	// Read all lines and keep only the last N
 	var lines []string
