@@ -61,7 +61,7 @@ docker logs -f cloudflare-ddns
 Run the binary to start the interactive setup:
 
 ```bash
-./cloudflare-ddns
+cloudflare-ddns
 ```
 
 The setup wizard will ask for:
@@ -75,7 +75,7 @@ The tool validates your credentials before saving.
 Start the polling loop:
 
 ```bash
-./cloudflare-ddns run
+cloudflare-ddns run
 ```
 
 This runs a 60-second polling loop that:
@@ -254,8 +254,4 @@ Log Result
 
 ## License
 
-MIT
-
-## Support
-
-For issues, feature requests, or contributions, visit: https://github.com/jon-frankel/cloudflare-ddns
+GPL 3.0
