@@ -23,7 +23,7 @@ cd cloudflare-ddns
 go build -o cloudflare-ddns
 ```
 
-### Via Homebrew (coming soon)
+### Via Homebrew
 
 ```bash
 brew tap jon-frankel/cloudflare-ddns
